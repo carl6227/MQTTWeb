@@ -1,0 +1,167 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQTT</title>
+
+    <!-- Added the Bootstrap CDN -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="col-m">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img src="undraw_message_sent_1030.png" style="width: 100%;" alt="">
+                </div>
+                <div class="col-sm-6">
+                    <h1 id="text1">𝗠𝗤𝗧𝗧 𝗼𝘃𝗲𝗿</h1>
+                    <h2 id="text2">𝗪𝗲𝗯 𝗦𝗼𝗰𝗸𝗲𝘁</h2>
+                    <h5>𝗦𝗗 𝗘𝗹𝗲𝗰𝘁𝗶𝘃𝗲 𝗜 (𝗖𝗼𝗺𝗽𝗹𝗲𝘁𝗶𝗼𝗻 𝗥𝗲𝗾𝘂𝗶𝗿𝗲𝗺𝗲𝗻𝘁)</h5>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Broker</h5>
+                            </div>
+                            <div class="modal-body">
+                                <strong>  <h5>Address: </h5></strong>
+
+                                <input type="text" class="form-control" value="wss://test.mosquitto.org:8081/mqtt" id="broker" aria-describedby="emailHelp">
+                                <br>
+                                <button type="button" id="connectBtn" class="btn btn-primary">Connect</button>
+                                <button style="float: right; margin-right:170px;color:white"type="button" id="disconnect-button"class="btn btn-warning">Disconnect</button>
+                                <strong>  <h5 style="margin-top: 10px;">Status: </h5 ></strong>
+                                <input type="text" class="form-control" id="status" aria-describedby="emailHelp" placeholder="Press Connect">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header  message-header">
+                                <h5 class="modal-title ">Incoming Messages</h5>
+
+                            </div>
+                            <div class="modal-body"  style="overflow-y:scroll;height: 300px;">
+                                <table id="incomingMessageTable" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Topic</th>
+                                            <th scope="col">Payload</th>
+                                            <th scope="col">Time Stamp</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Publish</h5>
+
+                            </div>
+                            <div class="modal-body">
+                                <strong>  <h5>Topic: </h5></strong>
+                                <input type="text" class="form-control" id="pubTopic" aria-describedby="emailHelp">
+                                <strong>  <h5 style="margin-top: 10px;">Payload: </h5 ></strong>
+                                <input type="text" class="form-control" id="pubMessage" aria-describedby="emailHelp">
+                                <br>
+                                <button type="button"id="pub-button" class="btn btn-primary">publish</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" >
+                            <div class="modal-header  message-header">
+                                <h5 class="modal-title">Published Messages</h5>
+                            </div>
+                            <div class="modal-body" style="overflow-y:scroll;height: 300px;">
+                                <table id="publishTable" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Topic</th>
+                                            <th scope="col">Payload</th>
+                                            <th scope="col">Time Stamp</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Subscribe</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="modal-body">
+                                    <strong>  <h5>Topic: </h5></strong>
+                                    <input type="text" class="form-control" id="sub-input" aria-describedby="emailHelp">
+                                    <br>
+                                    <button type="button" id="sub-button"class="btn btn-primary">Subscribe</button>
+                                    <button style="float: right; margin-right:120px; color: white;"type="button" id="unSub-button"class="btn btn-warning">Unsubscribe</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header message-header">
+                                <h5 class="modal-title ">Subcribed Messages</h5>
+                            </div>
+                            <div class="modal-body"  style="overflow-y:scroll;height: 300px;">
+                                <table id="subscribeTable" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Topic</th>
+                                            <th scope="col">Time Stamp</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./browserMqtt.js"></script>
+<script src="./index.js"></script>
+
+</html>
+
+</html>

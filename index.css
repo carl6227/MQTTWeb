@@ -1,0 +1,25 @@
+ #text1 {
+     font-size: 50px;
+     margin-top: 50px;
+ }
+ 
+ #text2 {
+     font-size: 40px;
+ }
+ 
+ .modal-header {
+     background-color: palevioletred;
+     color: white;
+ }
+ 
+ .message-header {
+     background-color: skyblue;
+     color: white;
+ }
+ .modal-dialog{
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+
+ }
+ button{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+ }
